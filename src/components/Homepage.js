@@ -1,6 +1,6 @@
 // HomePage.js
 import React from 'react';
-import './HomePage.css'; // Create this CSS file
+import './styles/HomePage.css'; // Create this CSS file
 
 function HomePage() {
   return (

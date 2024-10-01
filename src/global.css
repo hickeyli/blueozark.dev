@@ -1,0 +1,22 @@
+/* global.css */
+
+body {
+    margin: 0;
+    font-family: 'San Francisco', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #121212;
+    color: #E0E0E0;
+  }
+  
+  a {
+    color: #BB86FC;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #CF6679;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+  

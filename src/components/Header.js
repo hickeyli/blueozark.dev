@@ -1,22 +1,23 @@
-// Header.js
+// In App.js or Header.js
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './Header.css'; // Create this CSS file
+import '../styles/Header.css';
 
 function Header() {
   return (
-    <header>
-      <div className="logo">
-        <Link to="/">Blue Ozark Development</Link>
-      </div>
-      <nav>
-        <ul>
-          <li><Link to="/tutorials">Tutorials</Link></li>
-          <li><Link to="/resources">Resources</Link></li>
-          <li><Link to="/blog">Blog</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
+    <header className="hero">
+      <nav className="navigation">
+        <div className="logo">Blue Ozark Development</div>
+        <ul className="nav-links">
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
         </ul>
       </nav>
+      <div className="hero-content">
+        <h1>Innovative Development Solutions</h1>
+        <p>Innovative Solutions in FiveM, AI, and Web Development.</p>
+        {/* <a href="#contact" className="cta-button">Get in Touch</a> */}
+      </div>
     </header>
   );
 }

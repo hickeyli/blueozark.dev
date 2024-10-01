@@ -1,30 +1,78 @@
 /* Header.css */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #0A2540;
-    padding: 20px;
-  }
-  
-  .logo a {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-size: 24px;
-  }
-  
-  nav ul {
-    list-style: none;
-    display: flex;
-  }
-  
-  nav li {
-    margin-left: 20px;
-  }
-  
-  nav a {
-    color: #FFFFFF;
-    text-decoration: none;
-    font-size: 18px;
-  }
-  
+
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/abstract-city.jpg') center/cover no-repeat;
+  height: 100vh;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+}
+
+.logo {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 30px;
+}
+
+.nav-links a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 1em;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #007AFF;
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.5em;
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+.cta-button {
+  background-color: #007AFF;
+  color: #FFFFFF;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: background-color 0.3s;
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  background-color: #0051A8;
+}

@@ -1,25 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import HomePage from './components/HomePage';
-import Tutorials from './components/Tutorials';
-import Blog from './components/Blog';
-import Contact from './components/Contact';
-import Resources from './components/Resources';
+// App.js
+
+import React from 'react';
+import Header from './components/Header.js';
+// Uncomment the following lines if you have created these components
+import Showcase from './components/Showcase.js';
+import Blog from './components/Blog.js';
+import Resources from './components/Resources.js';
+import Portfolio from './components/Portfolio.js';
+
 
 function App() {
   return (
-    <Router>
+    <div className="App">
       <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/tutorials" element={<Tutorials />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/resources" element={<Resources />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-      <Footer />
-    </Router>
+      {/* Include additional sections as you create them */}
+      <Portfolio />
+      {/* <Blog /> */}
+      {/* <Resources /> */}
+    </div>
   );
 }
 

@@ -2,7 +2,7 @@
 
 .hero {
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/abstract-city.jpg') center/cover no-repeat;
-  height: 100vh;
+  height: 15vh; /* Reduced height */
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -12,12 +12,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 10px 20px; /* Reduced padding */
 }
 
 .logo {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.5em;
+  font-size: 1.2em; /* Reduced font size */
 }
 
 .nav-links {
@@ -26,13 +26,13 @@
 }
 
 .nav-links li {
-  margin-left: 30px;
+  margin-left: 20px; /* Reduced margin */
 }
 
 .nav-links a {
   color: #FFFFFF;
   text-decoration: none;
-  font-size: 1em;
+  font-size: 0.9em; /* Reduced font size */
   transition: color 0.3s;
 }
 
@@ -44,31 +44,33 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Center content vertically */
   align-items: center;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 5px; /* Reduced padding */
+  height: 100%; /* Ensure full height */
 }
 
 .hero-content h1 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 3em;
-  margin-bottom: 20px;
+  font-size: 2.5em; /* Reduced font size */
+  margin-bottom: 10px; /* Reduced margin */
 }
 
 .hero-content p {
-  font-size: 1.5em;
-  margin-bottom: 40px;
+  font-size: 1.2em; /* Reduced font size */
+  margin-bottom: 150px; /* Reduced margin */
   max-width: 600px;
+
 }
 
 .cta-button {
   background-color: #007AFF;
   color: #FFFFFF;
-  padding: 15px 30px;
+  padding: 10px 20px; /* Reduced padding */
   border: none;
   border-radius: 8px;
-  font-size: 1em;
+  font-size: 0.9em; /* Reduced font size */
   transition: background-color 0.3s;
   text-decoration: none;
 }

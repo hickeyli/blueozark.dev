@@ -1,96 +1,61 @@
 // Portfolio.js
 
-import React, { useState } from 'react';
-import projectsData from './projects/projects.js'; // Import your projects data
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Container, Grid, Card, CardContent, Typography, Button, Divider } from '@mui/material';
+import { listProjectFiles } from '../utils/s3Utils';
 import '../styles/Portfolio.css';
 
-
 function Portfolio() {
-  // State for selected category filter
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [projects, setProjects] = useState([]);
 
-  // State for search term
-  const [searchTerm, setSearchTerm] = useState('');
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const fileKeys = await listProjectFiles();
+      const projectPromises = fileKeys.map(async (key) => {
+        const response = await fetch(`https://blueozark-data.s3.us-east-2.amazonaws.com/${key}`);
+        const text = await response.text();
+        // Parse the markdown file to extract metadata and content
+        const [metadata, ...content] = text.split('\n');
+        const [title, category, description] = metadata.split(';');
+        return { title, category, description, content: content.join('\n'), key };
+      });
 
-  // List of categories for filtering buttons
-  const categories = ['All', 'FiveM', 'AI', 'Web Development'];
+      const projectsData = await Promise.all(projectPromises);
+      setProjects(projectsData);
+    };
 
-  // Function to handle category filter change
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
-  };
-
-  // Function to handle search input change
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
-
-  // Filter projects based on selected category and search term
-  const filteredProjects = projectsData.filter((project) => {
-    const matchesCategory =
-      selectedCategory === 'All' || project.category === selectedCategory;
-
-    const matchesSearch =
-      project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      project.description.toLowerCase().includes(searchTerm.toLowerCase());
-
-    return matchesCategory && matchesSearch;
-  });
+    fetchProjects();
+  }, []);
 
   return (
-    <section id="portfolio" className="portfolio">
-      <h2>My Portfolio</h2>
+    <Container className="portfolio-container">
+      <Typography variant="h4" component="h1" className="portfolio-header" gutterBottom>
+        Portfolio
+      </Typography>
 
-      {/* Search Input */}
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search projects..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
-      </div>
+      <Divider className="divider" />
 
-      {/* Category Filters */}
-      <div className="portfolio-filters">
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={`filter-button ${
-              selectedCategory === category ? 'active' : ''
-            }`}
-            onClick={() => handleCategoryClick(category)}
-          >
-            {category}
-          </button>
-        ))}
-      </div>
-
-      {/* Projects Grid */}
-      <div className="portfolio-grid">
-        {filteredProjects.length > 0 ? (
-          filteredProjects.map((project) => (
-            <div className="portfolio-item" key={project.id}>
-              <img src={project.image} alt={project.title} />
-              <div className="portfolio-item-content">
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="project-link"
-                >
+      <Grid container spacing={4}>
+        {projects.map((project, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Card>
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {project.title}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {project.description}
+                </Typography>
+                <Button component={Link} to={`/${project.key}`} variant="contained" color="primary">
                   Learn More
-                </a>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No projects found.</p>
-        )}
-      </div>
-    </section>
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      </Grid>
+    </Container>
   );
 }
 

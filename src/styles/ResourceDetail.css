@@ -1,0 +1,32 @@
+.resource-detail {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .resource-detail h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #0A2540;
+  }
+  
+  .resource-detail p {
+    font-size: 1.2em;
+    color: #333333;
+    margin-bottom: 20px;
+  }
+  
+  .resource-detail a {
+    display: inline-block;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .resource-detail a:hover {
+    background-color: #0051A8;
+  }

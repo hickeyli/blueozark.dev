@@ -1,5 +1,5 @@
-// In App.js or Header.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 
 function Header() {
@@ -8,9 +8,9 @@ function Header() {
       <nav className="navigation">
         <div className="logo">Blue Ozark Development</div>
         <ul className="nav-links">
-          <li><a href="#blog">Blog</a></li>
-          <li><a href="#resources">Resources</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
+          {/* <li><Link to="/blog">Blog</Link></li> */}
+          <li><Link to="/resources">Resources</Link></li>
+          <li><Link to="/portfolio">Portfolio</Link></li>
         </ul>
       </nav>
       <div className="hero-content">

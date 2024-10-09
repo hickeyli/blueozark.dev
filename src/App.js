@@ -8,13 +8,14 @@ import Star from "./components/Star";
 import Controls from "./components/Controls";
 import HoverPopup from "./components/HoverPopup";
 import * as THREE from "three";
-import useProjects from "./hooks/useProjects";
+import useItems from "./hooks/useItems";
 import { Routes, Route } from "react-router-dom";
 import ProjectPage from "./components/ProjectPage";
+import CategoryTabs from "./components/CategoryTabs";
 
 const DEBUG_STAR_MULTIPLIER = 50;
 
-const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRenderer }) => {
+const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRenderer, activeCategory }) => {
   const { camera, gl: renderer, scene } = useThree();
   const { scrollYProgress } = useScroll();
 
@@ -32,7 +33,7 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
   const raycaster = useRef(new THREE.Raycaster());
   const mouse = useRef(new THREE.Vector2());
 
-  const projects = useProjects();
+  const items = useItems();
 
   useFrame(() => {
     raycaster.current.setFromCamera(mouse.current, camera);
@@ -42,7 +43,7 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
       const intersectedObject = intersects[0].object;
       if (intersectedObject.userData && intersectedObject.userData.index !== undefined) {
         const projectIndex = intersectedObject.userData.index;
-        const project = projects[projectIndex];
+        const project = items[projectIndex];
         setHoveredStar(intersectedObject);
         setStarInfo(project);
       }
@@ -61,7 +62,7 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
         const intersectedObject = intersects[0].object;
         if (intersectedObject.userData && intersectedObject.userData.index !== undefined) {
           const projectIndex = intersectedObject.userData.index;
-          const project = projects[projectIndex];
+          const project = items[projectIndex];
 
           if (project) {
             onProjectClick(project.key);
@@ -74,7 +75,7 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
     return () => {
       renderer.domElement.removeEventListener("click", handleMouseClick);
     };
-  }, [camera, renderer, projects, scene, onProjectClick]);
+  }, [camera, renderer, items, scene, onProjectClick]);
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -87,6 +88,7 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
       window.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
+
 
   useFrame(() => {
     const controls = controlsRef.current;
@@ -103,15 +105,15 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
     }
   });
 
-  const stars = projects
-    .concat(Array(projects.length * (DEBUG_STAR_MULTIPLIER - 1)).fill(null))
-    .map((project, index) => (
-      <Star
-        key={index}
-        p={progress(0, projects.length * DEBUG_STAR_MULTIPLIER, index)}
-        userData={{ index }}
-      />
-    ));
+  const stars = items.map((item, index) => (
+    <Star
+      key={index}
+      p={progress(0, items.length, index)}
+      userData={{ index, ...item }}
+      category={item.category}
+      visible={activeCategory === 'all' || activeCategory === item.category}
+    />
+  ));
 
   return (
     <>
@@ -127,13 +129,21 @@ export default function App() {
   const [starInfo, setStarInfo] = useState(null);
   const [camera, setCamera] = useState(null);
   const [renderer, setRenderer] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('all');
 
   const navigateToProject = (projectKey) => {
     window.location.href = `${projectKey}`;
   };
 
+  const categories = ['all', 'project', 'resource'];
+
   return (
     <div className="container">
+      <CategoryTabs
+        categories={categories}
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+      />
       <Canvas gl={{ antialias: false }}>
         <Scene
           onProjectClick={navigateToProject}
@@ -141,6 +151,7 @@ export default function App() {
           setStarInfo={setStarInfo}
           setCamera={setCamera}
           setRenderer={setRenderer}
+          activeCategory={activeCategory}
         />
       </Canvas>
       {starInfo && hoveredStar && camera && renderer && (

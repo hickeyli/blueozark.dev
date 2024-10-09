@@ -1,4 +1,4 @@
-# React Documentation
+# React Documentation; resource; The official documentation for React
 
 ![React Logo](https://reactjs.org/logo-og.png)
 

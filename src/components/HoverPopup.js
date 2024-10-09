@@ -5,7 +5,7 @@ import * as THREE from "three";
 const HoverPopup = ({ hoveredStar, starInfo, camera, renderer }) => {
     if (!hoveredStar || !starInfo) return null;
     
-    console.log("Rendering HoverPopup with:", starInfo);
+    // console.log("Rendering HoverPopup with:", starInfo);
 
     const vector = new THREE.Vector3();
     hoveredStar.getWorldPosition(vector);
@@ -35,7 +35,7 @@ const HoverPopup = ({ hoveredStar, starInfo, camera, renderer }) => {
                 zIndex: 1000, // Ensure it's above other elements
             }}
         >
-            <h3>{starInfo.title}</h3>
+            <h3>{starInfo.name}</h3>
             <p>{starInfo.category}</p>
             <p>{starInfo.description}</p>
         </div>,

@@ -1,7 +1,7 @@
 import React, { useRef, useLayoutEffect } from "react";
 import { mix, degreesToRadians } from "popmotion";
 
-const Star = ({ p, userData }) => {
+const Star = ({ p, userData, category, visible }) => {
   const ref = useRef(null);
 
   // Set the position of the star using spherical coordinates
@@ -12,10 +12,12 @@ const Star = ({ p, userData }) => {
     ref.current.position.setFromSphericalCoords(distance, yAngle, xAngle);
   }, [p]);
 
+  const color = category === 'project' ? '#fafafa' : '#ffbb00';
+
   return (
-    <mesh ref={ref} userData={userData}>
+    <mesh ref={ref} userData={userData} visible={visible}>
       <boxGeometry args={[0.05, 0.05, 0.05]} />
-      <meshBasicMaterial color="#fafafa" />
+      <meshBasicMaterial color={color} transparent opacity={visible ? 1 : 0.2} />
     </mesh>
   );
 };

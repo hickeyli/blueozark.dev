@@ -1,4 +1,4 @@
-# FiveM Custom Script
+# FiveM Custom Script; project; A custom script for enhancing gameplay in FiveM servers
 
 ![FiveM Script](https://example.com/fivem-script.jpg)
 

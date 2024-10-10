@@ -6,24 +6,29 @@ const useItems = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const projectsResponse = await fetch('/projects.json');
-        const resourcesResponse = await fetch('/resources.json');
-        
-        const projectsFiles = await projectsResponse.json();
-        console.log(projectsFiles);
-        const resourcesFiles = await resourcesResponse.json();
+        const projectContext = require.context('../pages/projects', false, /\.js$/);
+        console.log('Project files found:', projectContext.keys());
 
-        const fetchAndParseFile = async (file, category) => {
-          const response = await fetch(`/${category}/${file}`);
-          const content = await response.text();
-          const [metadata, ...rest] = content.split('\n');
-          const [title, fileCategory, description] = metadata.split(';').map(item => item.trim());
-          console.log(title, fileCategory, description);
-          return { name: title, category: fileCategory, description, file, content: rest.join('\n') };
-        };
+        const projectItems = await Promise.all(
+          projectContext.keys().map(async (key) => {
+            console.log(`Loading project file: ${key}`);
+            const module = await import(`../pages/projects/${key.slice(2)}`);
+            console.log(`Loaded module:`, module);
+            return module.default.metadata;
+          })
+        );
 
-        const projectItems = await Promise.all(projectsFiles.map(file => fetchAndParseFile(file, 'projects')));
-        const resourceItems = await Promise.all(resourcesFiles.map(file => fetchAndParseFile(file, 'resources')));
+        const resourceContext = require.context('../pages/resources', false, /\.js$/);
+        console.log('Resource files found:', resourceContext.keys());
+
+        const resourceItems = await Promise.all(
+          resourceContext.keys().map(async (key) => {
+            console.log(`Loading resource file: ${key}`);
+            const module = await import(`../pages/resources/${key.slice(2)}`);
+            console.log(`Loaded module:`, module);
+            return module.default.metadata;
+          })
+        );
 
         setItems([...projectItems, ...resourceItems]);
       } catch (error) {

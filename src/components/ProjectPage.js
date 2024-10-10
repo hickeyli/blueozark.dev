@@ -1,40 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { Container, Typography, Button, CircularProgress } from '@mui/material';
+import '../styles/ResourcePage.css';
 
 const ProjectPage = () => {
-  const { projectKey } = useParams(); // Get project key from URL params
-  const [projectData, setProjectData] = useState(null);
+  const { projectKey } = useParams();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [ProjectComponent, setProjectComponent] = useState(null);
 
   useEffect(() => {
-    console.log("Rendering ProjectPage for projectKey:", projectKey);
-
-    const fetchProjectData = async () => {
-      try {
-        // const sanitizedKey = projectKey.replace(/-/g, "/"); // Revert sanitized key for fetching
-        // console.log("Fetching project data for:", sanitizedKey);
-        const response = await axios.get(`https://blueozark-data.s3.us-east-2.amazonaws.com/${projectKey}`);
-        setProjectData(response.data);
-      } catch (error) {
-        console.error('Error fetching project data:', error);
-      }
-    };
-    fetchProjectData();
+    console.log(`Attempting to load project: ${projectKey}`);
+    // Convert projectKey to PascalCase and append 'Page'
+    const componentName = projectKey.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('') + 'Page';
+    console.log(`Looking for component: ${componentName}`);
+    
+    import(`../pages/projects/${componentName}`)
+      .then(module => {
+        console.log('Project module loaded successfully:', module);
+        setProjectComponent(() => module.default);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to load project:", err);
+        setError(`Failed to load project: ${err.message}`);
+        setLoading(false);
+      });
   }, [projectKey]);
 
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  if (error) {
+    return <Typography color="error">{error}</Typography>;
+  }
+
+  if (!ProjectComponent) {
+    return <Typography>No project component found</Typography>;
+  }
+
   return (
-    <div style={{ padding: '20px' }}>
-      {projectData ? (
-        <>
-          <h1>{projectData.title}</h1>
-          <p>{projectData.description}</p>
-          {/* Render markdown content here */}
-          <div dangerouslySetInnerHTML={{ __html: projectData.content }} />
-        </>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
+    <Container className="project-container">
+      <Button onClick={() => navigate('/')} className="button" style={{ marginTop: '20px' }}>
+        Back to Home
+      </Button>
+      <ProjectComponent />
+    </Container>
   );
 };
 

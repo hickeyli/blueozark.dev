@@ -16,8 +16,10 @@ const Star = ({ p, userData, category, visible }) => {
 
   return (
     <mesh ref={ref} userData={userData} visible={visible}>
-      <boxGeometry args={[0.05, 0.05, 0.05]} />
+      {/* <boxGeometry args={[0.05, 0.05, 0.05]} /> */}
+      <sphereGeometry args={[0.05, 12.0, 8]} />
       <meshBasicMaterial color={color} transparent opacity={visible ? 1 : 0.2} />
+      
     </mesh>
   );
 };

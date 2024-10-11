@@ -9,13 +9,13 @@ function Header() {
         <div className="logo">Blue Ozark Development</div>
         <ul className="nav-links">
           {/* <li><Link to="/blog">Blog</Link></li> */}
-          <li><Link to="/resources">Resources</Link></li>
-          <li><Link to="/portfolio">Portfolio</Link></li>
+          {/* <li><Link to="/resources">Resources</Link></li> */}
+          {/* <li><Link to="/portfolio">Portfolio</Link></li> */}
         </ul>
       </nav>
       <div className="hero-content">
         <h1>Innovative Development Solutions</h1>
-        <p>Innovative Solutions in FiveM, AI, and Web Development.</p>
+        <p>Navigate the stars to find what you need!</p>
         {/* <a href="#contact" className="cta-button">Get in Touch</a> */}
       </div>
     </header>

@@ -7,7 +7,7 @@ const ExampleProjectPage = () => {
   }, []);
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" style={{ marginTop: '100px' }}>
       <Box my={4}>
         <Typography variant="h2" component="h1" gutterBottom>
           Example Project

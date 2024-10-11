@@ -16,6 +16,7 @@ const ExampleResourcePage = () => {
 
 // Static metadata
 ExampleResourcePage.metadata = {
+  key: 'example-resource',
   title: 'Example Resource',
   description: 'An example resource to demonstrate navigation.',
   category: 'resource',

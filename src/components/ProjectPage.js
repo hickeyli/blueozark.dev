@@ -43,7 +43,7 @@ const ProjectPage = () => {
 
   return (
     <Container className="project-container">
-      <Button onClick={() => navigate('/')} className="button" style={{ marginTop: '20px' }}>
+      <Button onClick={() => navigate('/')} className="button1" style={{ marginTop: '120px' }}>
         Back to Home
       </Button>
       <ProjectComponent />

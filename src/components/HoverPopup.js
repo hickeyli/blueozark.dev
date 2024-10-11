@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import * as THREE from "three";
 
 const HoverPopup = ({ hoveredStar, starInfo, camera, renderer }) => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        if (hoveredStar && starInfo) {
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+    }, [hoveredStar, starInfo]);
+
     if (!hoveredStar || !starInfo) return null;
     
     const vector = new THREE.Vector3();
@@ -19,17 +29,12 @@ const HoverPopup = ({ hoveredStar, starInfo, camera, renderer }) => {
   
     return ReactDOM.createPortal(
         <div
-            className="popup"
+            className={`popup ${isVisible ? 'show' : ''}`} // Conditionally add 'show' class
             style={{
                 position: "absolute",
                 left: `${screenPosition.x}px`,
                 top: `${screenPosition.y}px`,
                 transform: "translate(-50%, -100%)", // Move the popup above the star
-                backgroundColor: "white",
-                padding: "10px",
-                borderRadius: "5px",
-                boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-                zIndex: 1000,
                 pointerEvents: "none", // Allow click events to pass through
             }}
         >

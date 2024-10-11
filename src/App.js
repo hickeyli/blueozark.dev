@@ -14,6 +14,8 @@ import CategoryTabs from "./components/CategoryTabs";
 import ProjectPage from './components/ProjectPage';
 import ResourcePage from './components/ResourcePage';
 import React, { Suspense } from 'react';
+import StarryBackground from './components/StarryBackground';
+import Header from './components/Header';
 
 // const DEBUG_STAR_MULTIPLIER = 50;
 
@@ -29,11 +31,11 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
 
     const handleContextLost = (event) => {
       event.preventDefault();
-      console.log('WebGL context lost. You should probably refresh the page.');
+      // console.log('WebGL context lost. You should probably refresh the page.');
     };
 
     const handleContextRestored = () => {
-      console.log('WebGL context restored.');
+      // console.log('WebGL context restored.');
       // You might want to re-initialize your scene here
     };
 
@@ -136,6 +138,7 @@ const Scene = ({ onProjectClick, setHoveredStar, setStarInfo, setCamera, setRend
 
   return (
     <>
+      <StarryBackground />
       <Icosahedron />
       {stars}
       <Controls draggingRef={draggingRef} momentumRef={momentumRef} controlsRef={controlsRef} />
@@ -153,14 +156,14 @@ export default function App() {
   const location = useLocation();
 
   const navigateToItem = (category, key) => {
-    console.log(`Navigating to ${category}/${key}`);
+    // console.log(`Navigating to ${category}/${key}`);
     if (category === 'project') {
       const projectKey = key.toLowerCase().replace(/\s+/g, '-'); // Ensure key is in kebab-case
-      console.log(`Redirecting to /projects/${projectKey}`);
+      // console.log(`Redirecting to /projects/${projectKey}`);
       navigate(`/projects/${projectKey}`);
     } else if (category === 'resource') {
       const resourceKey = key.toLowerCase().replace(/\s+/g, '-'); // Ensure key is in kebab-case
-      console.log(`Redirecting to /resources/${resourceKey}`);
+      // console.log(`Redirecting to /resources/${resourceKey}`);
       navigate(`/resources/${resourceKey}`);
     }
   };
@@ -169,6 +172,7 @@ export default function App() {
 
   return (
     <div className="container">
+      <Header />
       <Routes>
         <Route path="/" element={
           <>

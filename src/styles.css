@@ -12,7 +12,7 @@ body {
     --orange: #fd7702;
     --yellow: #ffbb00;
   
-    --background: rgba(82, 81, 81, 0.466);
+    --background: rgba(31, 29, 29, 0.979);
     --accent: var(--black);
   
     margin: 0;
@@ -152,12 +152,25 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
-    background-color: white;
-    padding: 10px;
+    background-color: rgba(32, 238, 186, 0.8); /* Slightly transparent white */
+    padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 10;
+    border: 2px solid rgba(253, 255, 254, 0.8);
+    box-shadow: 0 0 15px rgba(32, 238, 159, 0.8);
+    z-index: 1000;
     pointer-events: none;
+    opacity: 0; /* Start with invisible */
+    transform: scale(0.7); /* Start with a slight scale down */
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out; /* Smooth transition */
+    backdrop-filter: blur(15px); /* Hologram-like blur */
+    width: 200px;
+    height: 200px;
+  }
+
+  .popup.show {
+    opacity: 0.9; /* Fade in */
+    transform: scale(1); /* Scale to normal size */
+    
   }
   
   .markdown-container {
@@ -179,9 +192,10 @@ body {
   }
   
   .category-tabs {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
   }
   

@@ -1,11 +1,17 @@
 /* Header.css */
 
 .hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/abstract-city.jpg') center/cover no-repeat;
-  height: 15vh; /* Reduced height */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #00000075;
+  /* background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/public/images/abstract-city.jpg') center/cover no-repeat; */
+  height: 10vh; /* Reduced height */
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
+  z-index: 20;
 }
 
 .navigation {
@@ -48,20 +54,21 @@
   align-items: center;
   text-align: center;
   padding: 0 5px; /* Reduced padding */
-  height: 100%; /* Ensure full height */
+  height: 50%; /* Ensure full height */
 }
 
 .hero-content h1 {
   font-family: 'Montserrat', sans-serif;
-  font-size: 2.5em; /* Reduced font size */
+  font-size: 1.5em; /* Reduced font size */
   margin-bottom: 10px; /* Reduced margin */
+  color: #FFFFFF;
 }
 
 .hero-content p {
   font-size: 1.2em; /* Reduced font size */
   margin-bottom: 150px; /* Reduced margin */
   max-width: 600px;
-
+  color: #FFFFFF;
 }
 
 .cta-button {
